@@ -1,0 +1,70 @@
+﻿@page 
+@model MyScriptureJournal.Pages.Scriptures.IndexModel
+
+@{
+    ViewData["Title"] = "Journal Entries";
+}
+<h1>My Scripture Journal Entries</h1>
+<p>
+    <a class="btn btn-primary" asp-page="Create">Create New</a>
+</p>
+<form class="mb-5">
+    <div class="form-group col-lg-4">
+        <label for="searchbook">Search Book Names:</label>
+        <input type="text" class="form-control" id="searchbook" asp-for="SearchBookString">
+    </div>
+    <div class="form-group col-lg-4">
+        <label for="searchthought">Search Thoughts:</label>
+        <input type="text" class="form-control" id="searchthought" asp-for="SearchThoughtString">
+    </div>
+    <input class="btn btn-primary" type="submit" value="Filter" />
+</form>
+<div class="table-responsive-lg">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Scripture[0].Book)
+                    <a asp-page="./Index" class="text-decoration-none" asp-route-SortColumn="BookDown">&#9660;</a>
+                    <a asp-page="./Index" class="text-decoration-none" asp-route-SortColumn="BookUp">&#9650;</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Scripture[0].Chapter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Scripture[0].Verse)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Scripture[0].Thoughts)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Scripture[0].EntryDate)
+                    <a asp-page="./Index" class="text-decoration-none" asp-route-SortColumn="EntryDateDown">&#9660;</a>
+                    <a asp-page="./Index" class="text-decoration-none" asp-route-SortColumn="EntryDateUp">&#9650;</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Scripture)
+            {
+            <tr onclick="window.location='Scriptures/Details?id=@item.ID'">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chapter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Verse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Thoughts)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EntryDate)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
